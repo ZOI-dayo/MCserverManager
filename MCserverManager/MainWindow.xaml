@@ -3,7 +3,9 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:wfc="clr-namespace:System.Windows.Forms.DataVisualization.Charting;assembly=System.Windows.Forms.DataVisualization"
         xmlns:local="clr-namespace:MCserverManager"
+        xmlns:oxy="http://oxyplot.org/wpf"
         mc:Ignorable="d"
         Title="MainWindow" Height="720" Width="1280">
     <Grid x:Name="Main" Background="#FFFDB2EF">
@@ -18,7 +20,12 @@
                 <RowDefinition Height="100*"/>
                 <RowDefinition Height="589*"/>
             </Grid.RowDefinitions>
-            <Grid x:Name="Server_Info" Margin="5" Background="#FFCAA5FF"/>
+            <Grid x:Name="Server_Info" Margin="5" Background="#FFCAA5FF">
+                <Ellipse Fill="White" Stroke="Black" Width="15" Height="15" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="16,0,0,0"/>
+                <Image HorizontalAlignment="Left" Height="80" Margin="40,0,0,0" Width="80" Stretch="Fill"/>
+                <Label Content="Server Name" HorizontalAlignment="Left" Margin="145,10,0,0" VerticalAlignment="Top" FontWeight="Bold" FontSize="16"/>
+                <Button Content="Start/Stop" HorizontalAlignment="Right" Margin="793,10,15,0" VerticalAlignment="Center"/>
+            </Grid>
             <TabControl x:Name="Server_Control" Margin="5" Grid.Row="1">
                 <TabItem x:Name="Server_Info_Tab" Header="Info">
                     <Grid Background="#FFE5E5E5"/>
@@ -82,12 +89,12 @@
                                 <ColumnDefinition Width="9*"/>
                             </Grid.ColumnDefinitions>
                             <TextBox x:Name="Console_Control_TextBox" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Center" Margin="10,0"/>
-                            <Button Content="送信" Margin="10,0" VerticalAlignment="Center" Grid.Column="1"/>
+                            <Button x:Name="Console_Control_TextSend_Button" Content="送信" Margin="10,0" VerticalAlignment="Center" Grid.Column="1"/>
                         </Grid>
                     </Grid>
                 </TabItem>
                 <TabItem x:Name="System_Tab" Header="System">
-                    <Grid x:Name="System_MEM_Text" Background="#FFE5E5E5">
+                    <Grid x:Name="System_Data_Grid" Background="#FFE5E5E5">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="2*"/>
                             <ColumnDefinition Width="16*"/>
@@ -99,16 +106,35 @@
                             <RowDefinition Height="3*"/>
                             <RowDefinition Height="3*"/>
                         </Grid.RowDefinitions>
-                        <TextBlock x:Name="System_CPU_Text" Margin="0" Grid.Row="1" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Center" HorizontalAlignment="Center">
+                        <Label Content="システム情報" Margin="10" Grid.ColumnSpan="2" FontSize="16"/>
+                        <TextBlock x:Name="System_CPU_Text" Margin="0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Center">
                             CPU
                         </TextBlock>
-                        <TextBlock HorizontalAlignment="Center" Margin="0" Grid.Row="2" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Center">
+                        <TextBlock x:Name="System_MEM_Text" HorizontalAlignment="Center" Margin="0" Grid.Row="2" TextWrapping="Wrap" VerticalAlignment="Center">
                             MEM
                         </TextBlock>
-                        <TextBlock x:Name="System_STR_Text" HorizontalAlignment="Center" Margin="0" Grid.Row="3" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Center">
+                        <TextBlock x:Name="System_STR_Text" HorizontalAlignment="Center" Margin="0" Grid.Row="3" TextWrapping="Wrap" VerticalAlignment="Center">
                             STR
                         </TextBlock>
-                        <!--<Canvas x:Name="System_Data_Canvas" Margin="5"/>-->
+                        <Canvas x:Name="System_CPU_Graph" Grid.Column="1" Margin="10" Grid.Row="1" Background="White" Width="714" Height="145">
+                            <!--
+                            <oxy:Plot>
+                                <oxy:Plot.Axes>
+                                    <oxy:LinearAxis Position="Bottom"/>
+                                    <oxy:LinearAxis/>
+                                </oxy:Plot.Axes>
+                                <oxy:LineSeries/>
+                            </oxy:Plot>
+                            -->
+                            <!--
+                            <WindowsFormsHost x:Name="System_CPU_Graph_Form" Margin="0" Width="714" Height="145">
+                                <wfc:Chart x:Name="System_CPU_Graph_Chart"/>
+                            </WindowsFormsHost>
+                            -->
+
+                        </Canvas>
+                        <Canvas Grid.Column="1" Margin="10" Grid.Row="2" Background="White"/>
+                        <Canvas Grid.Column="1" Margin="10" Grid.Row="3" Background="White"/>
                     </Grid>
                 </TabItem>
             </TabControl>

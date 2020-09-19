@@ -1,11 +1,10 @@
-﻿<Window x:Class="MCserverManager.MainWindow"
+﻿<Window
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:wfc="clr-namespace:System.Windows.Forms.DataVisualization.Charting;assembly=System.Windows.Forms.DataVisualization"
         xmlns:local="clr-namespace:MCserverManager"
-        xmlns:oxy="http://oxyplot.org/wpf"
+        xmlns:System="clr-namespace:System;assembly=mscorlib" x:Class="MCserverManager.MainWindow"
         mc:Ignorable="d"
         Title="MainWindow" Height="720" Width="1280">
     <Grid x:Name="Main" Background="#FFFDB2EF">
@@ -37,51 +36,7 @@
                             <RowDefinition/>
                         </Grid.RowDefinitions>
                         <ScrollViewer x:Name="Console_Log_Scroll" Margin="0" Background="#FF202020" Padding="0,0,0,28" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch">
-                            <TextBlock x:Name="Console_Log_Test" TextWrapping="Wrap" Text="TextBlock" FontFamily="Lucida Console" FontSize="16" Foreground="White" Margin="10,10,10,-17">
-                                hduiqwgyiudeguydgwqiwhduygfheoihduyisgiudgehiugsahoiheiugfkjoiahuiohfkjehkouidhshfkjheiuhifhjkdshfd<LineBreak />
-                                oeifhoiwehoifheoihfdh
-                                uihdfeiwuhdf
-                                <LineBreak />
-                                <LineBreak />
-                                <LineBreak />
-                                <LineBreak />
-                                <LineBreak />
-                                <LineBreak />
-                                <LineBreak />
-                                <LineBreak />
-                                <LineBreak />
-                                <LineBreak />
-                                <LineBreak />
-                                <LineBreak />
-                                <LineBreak />
-                                <LineBreak />
-                                <LineBreak />
-                                <LineBreak />
-                                <LineBreak />
-                                a
-                                
-                                <LineBreak />
-                                <LineBreak />
-                                <LineBreak />
-                                <LineBreak />
-                                <LineBreak />
-                                <LineBreak />a
-                                <LineBreak />
-                                <LineBreak />
-                                <LineBreak />
-                                <LineBreak />
-                                <LineBreak />
-                                <LineBreak />a
-                                <LineBreak />
-                                <LineBreak />
-                                <LineBreak />
-                                <LineBreak />
-                                <LineBreak />b
-                                <LineBreak />
-                                <LineBreak />
-                                <LineBreak />
-                                <LineBreak />c
-                            </TextBlock>
+                            <TextBlock x:Name="Console_Log_Test" TextWrapping="Wrap" Text="TextBlock" FontFamily="Lucida Console" FontSize="16" Foreground="White" Margin="10,10,10,-17"><Run Text="hduiqwgyiudeguydgwqiwhduygfheoihduyisgiudgehiugsahoiheiugfkjoiahuiohfkjehkouidhshfkjheiuhifhjkdshfd"/><LineBreak /><Run Text="oeifhoiwehoifheoihfdh uihdfeiwuhdf"/><LineBreak /><LineBreak /><LineBreak /><LineBreak /><LineBreak /><LineBreak /><LineBreak /><LineBreak /><LineBreak /><LineBreak /><LineBreak /><LineBreak /><LineBreak /><LineBreak /><LineBreak /><LineBreak /><LineBreak /><Run Text="a"/><LineBreak /><LineBreak /><LineBreak /><LineBreak /><LineBreak /><LineBreak /><Run Text="a"/><LineBreak /><LineBreak /><LineBreak /><LineBreak /><LineBreak /><LineBreak /><Run Text="a"/><LineBreak /><LineBreak /><LineBreak /><LineBreak /><LineBreak /><Run Text="b"/><LineBreak /><LineBreak /><LineBreak /><LineBreak /><Run Text="c"/></TextBlock>
                         </ScrollViewer>
                         <Grid x:Name="Console_Control_Grid" Margin="0" Grid.Row="1">
                             <Grid.ColumnDefinitions>
@@ -107,16 +62,14 @@
                             <RowDefinition Height="3*"/>
                         </Grid.RowDefinitions>
                         <Label Content="システム情報" Margin="10" Grid.ColumnSpan="2" FontSize="16"/>
-                        <TextBlock x:Name="System_CPU_Text" Margin="0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Center">
-                            CPU
-                        </TextBlock>
-                        <TextBlock x:Name="System_MEM_Text" HorizontalAlignment="Center" Margin="0" Grid.Row="2" TextWrapping="Wrap" VerticalAlignment="Center">
-                            MEM
-                        </TextBlock>
-                        <TextBlock x:Name="System_STR_Text" HorizontalAlignment="Center" Margin="0" Grid.Row="3" TextWrapping="Wrap" VerticalAlignment="Center">
-                            STR
-                        </TextBlock>
-                        <Canvas x:Name="System_CPU_Graph" Grid.Column="1" Margin="10" Grid.Row="1" Background="White" Width="714" Height="145">
+                        <TextBlock x:Name="System_CPU_Text" Margin="0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Center"><Run Text="CPU"/></TextBlock>
+                        <TextBlock x:Name="System_MEM_Text" HorizontalAlignment="Center" Margin="0" Grid.Row="2" TextWrapping="Wrap" VerticalAlignment="Center"><Run Text="MEM"/></TextBlock>
+                        <TextBlock x:Name="System_STR_Text" HorizontalAlignment="Center" Margin="0" Grid.Row="3" TextWrapping="Wrap" VerticalAlignment="Center"><Run Text="STR"/></TextBlock>
+                        <Canvas x:Name="System_CPU_Graph" Grid.Column="1" Margin="10" Grid.Row="1" Background="White">
+                            <Canvas.Resources>
+                                <System:Double x:Key="Double_Width">NaN</System:Double>
+                                <System:Double x:Key="Double_Height">NaN</System:Double>
+                            </Canvas.Resources>
                             <!--
                             <oxy:Plot>
                                 <oxy:Plot.Axes>

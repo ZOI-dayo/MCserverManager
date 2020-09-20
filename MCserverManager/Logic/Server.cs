@@ -1,13 +1,14 @@
 ﻿using MCserverManager.Util;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Threading;
 
-namespace MCserverManager.System
+namespace MCserverManager.Logic
 {
     public class Server
     {
@@ -38,12 +39,13 @@ namespace MCserverManager.System
             isRunning = false;
 
             // タイマー関係
-            SystemTimer = Timer.CreateTimer(500);
+            SystemTimer = Timer.CreateTimer(1000);
             // タイマーイベントの定義
-            SystemTimer.Tick += (sender, e) =>
+            SystemTimer.Tick += async (sender, e) =>
             {
-                CPUlog.Insert(0, (float)SystemInfo.getCPUCounter());
-                Glaph.createCanvasForGlaph(System_CPU_Graph, CPUlog);
+                object cpuCount = await Task.Run(new Func<object>(SystemInfo.getCPUCounter));
+                CPUlog.Insert(0, (float)cpuCount);
+                Glaph.CreateCanvasForGlaph(System_CPU_Graph, CPUlog);
             };
         }
 
@@ -68,7 +70,14 @@ namespace MCserverManager.System
             return System_CPU_Graph;
         }
 
-
+        public void Show(Grid MainGrid) {
+            Canvas System_CPU_Graph =(Canvas) MainGrid.FindName("System_CPU_Graph");
+            System_CPU_Graph = this.System_CPU_Graph;
+        }
+        public Boolean IsRunning()
+        {
+            return isRunning;
+        }
 
     }
 }

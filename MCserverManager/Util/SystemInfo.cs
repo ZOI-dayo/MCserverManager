@@ -23,7 +23,7 @@ namespace MCserverManager.Util
 
             // will always start at 0
             dynamic firstValue = cpuCounter.NextValue();
-            Thread.Sleep(100);
+            Thread.Sleep(1000);
             // now matches task manager reading
             dynamic secondValue = cpuCounter.NextValue();
 

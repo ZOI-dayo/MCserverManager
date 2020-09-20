@@ -13,7 +13,23 @@
             <ColumnDefinition Width="111*"/>
             <ColumnDefinition Width="32*"/>
         </Grid.ColumnDefinitions>
-        <Grid x:Name="Server_Panel" Background="#FFFFC0C0" HorizontalAlignment="Left" Width="128"/>
+        <Grid x:Name="Server_Panel" Background="#FFFFC0C0" HorizontalAlignment="Left" Width="128">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50*"/>
+                <RowDefinition Height="3*"/>
+            </Grid.RowDefinitions>
+
+            <ScrollViewer Margin="0" VerticalScrollBarVisibility="Auto">
+                <StackPanel x:Name="Server_StackPanel">
+                    <Button x:Name="Server_Button_Template"  VerticalAlignment="Top" BorderBrush="Black" Background="#FFF4F4F5" Margin="5,10" Height="50" Visibility="Collapsed">
+                        <Label Content="TEST SERVER" FontWeight="Bold"/>
+                    </Button>
+                </StackPanel>
+            </ScrollViewer>
+            <Grid x:Name="Server_Add_Menu" Background="#FFF4F4F5" Grid.Row="1">
+                <Button x:Name="Server_Add_Button" Content="Add" Margin="10,10,11,10" Grid.Row="1" Click="Server_Add_Button_Click"/>
+            </Grid>
+        </Grid>
         <Grid x:Name="Main_Panel" Grid.Column="1">
             <Grid.RowDefinitions>
                 <RowDefinition Height="100*"/>

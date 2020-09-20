@@ -18,6 +18,8 @@ using System.Diagnostics;
 // using System.Windows.Forms.DataVisualization.Charting;
 using System.Drawing;
 using MCserverManager.Util;
+using MCserverManager.Logic;
+using MCserverManager.Logic.Manager;
 
 namespace MCserverManager
 {
@@ -31,6 +33,20 @@ namespace MCserverManager
         {
             // 初期化
             InitializeComponent();
+        }
+
+        /*
+        private void Server_Button_Click(object sender, RoutedEventArgs e)
+        {
+            Server server = new Server(System_CPU_Graph);
+            ServerManager.ShowServer(((Button)sender).Name, Main, server);
+        }
+        */
+
+        private void Server_Add_Button_Click(object sender, RoutedEventArgs e)
+        {
+            Window serverAddWindow = new ServerAddWindow(Main, System_CPU_Graph, Server_StackPanel, Server_Button_Template);
+            serverAddWindow.Show();
         }
     }
 }

@@ -55,11 +55,18 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="System\Manager\ServerManager.cs" />
-    <Compile Include="System\Server.cs" />
+    <Compile Include="Logic\Manager\ServerManager.cs" />
+    <Compile Include="Logic\Server.cs" />
+    <Compile Include="Logic\ServerAddWindow.xaml.cs">
+      <DependentUpon>ServerAddWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Util\Glaph.cs" />
     <Compile Include="Util\SystemInfo.cs" />
     <Compile Include="Util\Timer.cs" />
+    <Page Include="Logic\ServerAddWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

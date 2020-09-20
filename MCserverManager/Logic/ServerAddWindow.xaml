@@ -1,0 +1,29 @@
+﻿<Window x:Class="MCserverManager.Logic.ServerAddWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MCserverManager.Logic"
+        mc:Ignorable="d"
+        Title="ServerAdd" Height="450" Width="800">
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="56*"/>
+            <RowDefinition Height="65*"/>
+            <RowDefinition Height="258*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="7*"/>
+        </Grid.ColumnDefinitions>
+        <Label Content="サーバーの追加" VerticalAlignment="Top" FontSize="24" Padding="5" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Grid.ColumnSpan="2" Height="42" Width="147"/>
+        <Label Content="名前" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="26,21,0,0" Grid.Row="1" Height="26" Width="34"/>
+        <TextBox x:Name="Server_Name" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Width="175" Margin="10,25,0,0" Foreground="Gray" Grid.Column="1" Grid.Row="1" Height="18"/>
+        <Button x:Name="Done_Button" Content="完了" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="75" Margin="0,0,15,0" Click="Done_Button_Click" Grid.Column="1" Height="20"/>
+
+
+
+
+
+    </Grid>
+</Window>

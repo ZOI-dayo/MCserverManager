@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows.Controls;
-using MCserverManager.System;
+using MCserverManager.Logic;
 
-namespace MCserverManager.System.Manager
+namespace MCserverManager.Logic.Manager
 {
     /// <summary>
     /// サーバーの一覧を管理します
@@ -22,7 +22,7 @@ namespace MCserverManager.System.Manager
         /// <param name="ID">管理用ID</param>
         /// <param name="server">サーバーのオブジェクト</param>
         /// <returns>サーバーの保存に成功したかどうか</returns>
-        public static Boolean setServer(string ID, Server server) {
+        public static Boolean SetServer(string ID, Server server) {
             if (servers.ContainsKey(ID)) return false;
             servers.Add(ID, server);
             return true;
@@ -32,7 +32,7 @@ namespace MCserverManager.System.Manager
         /// </summary>
         /// <param name="ID">求めるサーバーのID</param>
         /// <returns>取得したサーバー</returns>
-        public static Server getServer(string ID) {
+        public static Server GetServer(string ID) {
             return servers[ID];
         }
 
@@ -42,9 +42,23 @@ namespace MCserverManager.System.Manager
         /// <param name="ID">管理用ID</param>
         /// <param name="System_CPU_Graph">サーバーのグラフ描画用オブジェクト</param>
         /// <returns>サーバーの保存に成功したかどうか</returns>
-        public static Boolean createServer(string ID, Canvas System_CPU_Graph) {
+        public static Boolean CreateServer(string ID, Canvas System_CPU_Graph) {
             Server server = new Server(System_CPU_Graph);
-            return setServer(ID, server);
+            return SetServer(ID, server);
+        }
+        public static void ShowServer(string ID, Grid MainGrid)
+        {
+            Server server = GetServer(ID);
+            // あとで消す
+            if (!server.IsRunning()) {
+                server.run();
+            }
+            server.Show(MainGrid);
+        }
+
+        public static Boolean ContainServer(String ID)
+        {
+            return servers.ContainsKey(ID);
         }
     }
 }

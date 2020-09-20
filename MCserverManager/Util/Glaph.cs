@@ -15,7 +15,7 @@ namespace MCserverManager.Util
         /// </summary>
         /// <param name="parent">親となるCanvasオブジェクトです</param>
         /// <param name="list">データが入っているリストです(float型、百分率)</param>
-        public static void createCanvasForGlaph(Canvas parent, List<float> list)
+        public static void CreateCanvasForGlaph(Canvas parent, List<float> list)
         {
             parent.Children.Clear();
             for (int index = 0; index < parent.ActualWidth; index++)
@@ -38,6 +38,9 @@ namespace MCserverManager.Util
                 Canvas.SetLeft(canvas, parent.ActualWidth - index - 1);
                 parent.Children.Add(canvas);
                 Console.WriteLine("aaa");
+            }
+            for(int i =Convert.ToInt32(Math.Ceiling(parent.ActualWidth)); i < list.Count; i++) {
+                list.RemoveAt(i);
             }
         }
         public static void clear(Canvas parent)

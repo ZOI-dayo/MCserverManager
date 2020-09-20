@@ -40,5 +40,9 @@ namespace MCserverManager.Util
                 Console.WriteLine("aaa");
             }
         }
+        public static void clear(Canvas parent)
+        {
+            parent.Children.Clear();
+        }
     }
 }

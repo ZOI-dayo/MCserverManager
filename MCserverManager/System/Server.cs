@@ -7,12 +7,13 @@ using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Threading;
 
-namespace MCserverManager.Server
+namespace MCserverManager.System
 {
-    class Server
+    public class Server
     {
         // 参照用
         private Canvas System_CPU_Graph;
+        private Boolean isRunning;
         // 処理用
         /// <summary>
         /// システム監視用タイマー,グラフ更新用
@@ -32,7 +33,9 @@ namespace MCserverManager.Server
         /// <summary>
         /// データの初期化用
         /// </summary>
-        private void Init() {
+        private void Init()
+        {
+            isRunning = false;
 
             // タイマー関係
             SystemTimer = Timer.CreateTimer(500);
@@ -42,7 +45,27 @@ namespace MCserverManager.Server
                 CPUlog.Insert(0, (float)SystemInfo.getCPUCounter());
                 Glaph.createCanvasForGlaph(System_CPU_Graph, CPUlog);
             };
+        }
+
+        public Boolean run()
+        {
+            if (isRunning) return false;
+
             SystemTimer.Start();
+            return true;
+        }
+        public Boolean stop()
+        {
+            if (!isRunning) return false;
+
+            SystemTimer.Stop();
+            Glaph.clear(System_CPU_Graph);
+            return true;
+        }
+
+        public Canvas getCPUglaph()
+        {
+            return System_CPU_Graph;
         }
 
 

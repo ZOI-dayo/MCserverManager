@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+using System.Threading;
 
 namespace MCserverManager.Util
 {
@@ -23,7 +23,7 @@ namespace MCserverManager.Util
 
             // will always start at 0
             dynamic firstValue = cpuCounter.NextValue();
-            System.Threading.Thread.Sleep(100);
+            Thread.Sleep(100);
             // now matches task manager reading
             dynamic secondValue = cpuCounter.NextValue();
 

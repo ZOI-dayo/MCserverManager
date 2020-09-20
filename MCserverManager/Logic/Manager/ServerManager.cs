@@ -42,8 +42,8 @@ namespace MCserverManager.Logic.Manager
         /// <param name="ID">管理用ID</param>
         /// <param name="System_CPU_Graph">サーバーのグラフ描画用オブジェクト</param>
         /// <returns>サーバーの保存に成功したかどうか</returns>
-        public static Boolean CreateServer(string ID, Canvas System_CPU_Graph) {
-            Server server = new Server(System_CPU_Graph);
+        public static Boolean CreateServer(string ID) {
+            Server server = new Server();
             return SetServer(ID, server);
         }
         public static void ShowServer(string ID, Grid MainGrid)

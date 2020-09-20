@@ -45,7 +45,7 @@ namespace MCserverManager
 
         private void Server_Add_Button_Click(object sender, RoutedEventArgs e)
         {
-            Window serverAddWindow = new ServerAddWindow(Main, System_CPU_Graph, Server_StackPanel, Server_Button_Template);
+            Window serverAddWindow = new ServerAddWindow(Main, Server_StackPanel, Server_Button_Template);
             serverAddWindow.Show();
         }
     }

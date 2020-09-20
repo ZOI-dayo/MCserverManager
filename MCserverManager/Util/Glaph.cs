@@ -27,17 +27,13 @@ namespace MCserverManager.Util
                 if (index < list.Count)
                 {
                     // Content = canvas.Height * (list[list.Count - index - 1] / 100); // 高さ
-                    Console.WriteLine("C.H = " + parent.ActualHeight);
-                    Console.WriteLine(list[index] / 100);
                     Content = parent.ActualHeight * (list[index] / 100); // 高さ
                 }
-                Console.WriteLine("右から" + index.ToString() + "、値" + Content.ToString());
                 canvas.Height = Content;
                 canvas.Width = 1;
                 Canvas.SetTop(canvas, parent.ActualHeight - Content);
                 Canvas.SetLeft(canvas, parent.ActualWidth - index - 1);
                 parent.Children.Add(canvas);
-                Console.WriteLine("aaa");
             }
             for(int i =Convert.ToInt32(Math.Ceiling(parent.ActualWidth)); i < list.Count; i++) {
                 list.RemoveAt(i);

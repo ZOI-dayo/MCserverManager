@@ -81,11 +81,7 @@
                         <TextBlock x:Name="System_CPU_Text" Margin="0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Center"><Run Text="CPU"/></TextBlock>
                         <TextBlock x:Name="System_MEM_Text" HorizontalAlignment="Center" Margin="0" Grid.Row="2" TextWrapping="Wrap" VerticalAlignment="Center"><Run Text="MEM"/></TextBlock>
                         <TextBlock x:Name="System_STR_Text" HorizontalAlignment="Center" Margin="0" Grid.Row="3" TextWrapping="Wrap" VerticalAlignment="Center"><Run Text="STR"/></TextBlock>
-                        <Canvas x:Name="System_CPU_Graph" Grid.Column="1" Margin="10" Grid.Row="1" Background="White">
-                            <Canvas.Resources>
-                                <System:Double x:Key="Double_Width">NaN</System:Double>
-                                <System:Double x:Key="Double_Height">NaN</System:Double>
-                            </Canvas.Resources>
+                        <Grid x:Name="System_CPU_Graph" Grid.Column="1" Margin="10" Grid.Row="1">
                             <!--
                             <oxy:Plot>
                                 <oxy:Plot.Axes>
@@ -101,7 +97,7 @@
                             </WindowsFormsHost>
                             -->
 
-                        </Canvas>
+                        </Grid>
                         <Canvas Grid.Column="1" Margin="10" Grid.Row="2" Background="White"/>
                         <Canvas Grid.Column="1" Margin="10" Grid.Row="3" Background="White"/>
                     </Grid>

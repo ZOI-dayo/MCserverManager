@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
+using System.Windows.Media;
 using System.Windows.Threading;
 
 namespace MCserverManager.Logic
@@ -13,7 +14,8 @@ namespace MCserverManager.Logic
     public class Server
     {
         // 参照用
-        private Canvas System_CPU_Graph;
+        private Canvas CPU_Graph_inner = new Canvas();
+        // <Canvas x:Name="System_CPU_Graph" Grid.Column="1" Margin="10" Grid.Row="1" Background="White">
         private Boolean isRunning;
         // 処理用
         /// <summary>
@@ -25,9 +27,8 @@ namespace MCserverManager.Logic
         /// </summary>
         private List<float> CPUlog = new List<float>();
 
-        public Server(Canvas System_CPU_Graph)
+        public Server()
         {
-            this.System_CPU_Graph = System_CPU_Graph;
             Init();
         }
 
@@ -36,6 +37,8 @@ namespace MCserverManager.Logic
         /// </summary>
         private void Init()
         {
+            CPU_Graph_inner.Name = "System_CPU_Graph_inner";
+            CPU_Graph_inner.Background = Brushes.White;
             isRunning = false;
 
             // タイマー関係
@@ -45,14 +48,13 @@ namespace MCserverManager.Logic
             {
                 object cpuCount = await Task.Run(new Func<object>(SystemInfo.getCPUCounter));
                 CPUlog.Insert(0, (float)cpuCount);
-                Glaph.CreateCanvasForGlaph(System_CPU_Graph, CPUlog);
+                Glaph.CreateCanvasForGlaph(CPU_Graph_inner, CPUlog);
             };
         }
 
         public Boolean run()
         {
             if (isRunning) return false;
-
             SystemTimer.Start();
             return true;
         }
@@ -61,18 +63,22 @@ namespace MCserverManager.Logic
             if (!isRunning) return false;
 
             SystemTimer.Stop();
-            Glaph.clear(System_CPU_Graph);
+            Glaph.clear(CPU_Graph_inner);
             return true;
         }
 
         public Canvas getCPUglaph()
         {
-            return System_CPU_Graph;
+            return CPU_Graph_inner;
         }
 
         public void Show(Grid MainGrid) {
-            Canvas System_CPU_Graph =(Canvas) MainGrid.FindName("System_CPU_Graph");
-            System_CPU_Graph = this.System_CPU_Graph;
+
+            Grid System_CPU_Graph = (Grid) MainGrid.FindName("System_CPU_Graph");
+            System_CPU_Graph.Children.Clear();
+            System_CPU_Graph.Children.Add(CPU_Graph_inner);
+            Debug.WriteLine(CPU_Graph_inner.Name);
+            
         }
         public Boolean IsRunning()
         {

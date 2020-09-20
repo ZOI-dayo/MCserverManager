@@ -21,14 +21,12 @@ namespace MCserverManager.Logic
     public partial class ServerAddWindow : Window
     {
         private Grid Main;
-        private Canvas System_CPU_Graph;
         private StackPanel Server_StackPanel;
         private Button Server_Button_Template;
-        public ServerAddWindow(Grid Main, Canvas System_CPU_Graph, StackPanel Server_StackPanel, Button Server_Button_Template)
+        public ServerAddWindow(Grid Main, StackPanel Server_StackPanel, Button Server_Button_Template)
         {
             InitializeComponent();
             this.Main = Main;
-            this.System_CPU_Graph = System_CPU_Graph;
             this.Server_StackPanel = Server_StackPanel;
             this.Server_Button_Template = Server_Button_Template;
         }
@@ -36,7 +34,7 @@ namespace MCserverManager.Logic
         private void Done_Button_Click(object sender, RoutedEventArgs e)
         {
             string serverName = Server_Name.Text;
-            ServerManager.CreateServer(serverName, System_CPU_Graph);
+            ServerManager.CreateServer(serverName);
 
             Button serverButton = new Button();
             serverButton.Name = serverName;
@@ -70,7 +68,7 @@ namespace MCserverManager.Logic
             string ID = ((Button)sender).Name;
             if (!ServerManager.ContainServer(ID))
             {
-                Server server = new Server(System_CPU_Graph);
+                ServerManager.CreateServer(ID);
             }
             ServerManager.ShowServer(ID, Main);
         }

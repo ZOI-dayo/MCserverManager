@@ -16,10 +16,7 @@ namespace MCserverManager.Util
         /// <returns>CPU使用率(int型,%)</returns>
         public static object getCPUCounter()
         {
-            PerformanceCounter cpuCounter = new PerformanceCounter();
-            cpuCounter.CategoryName = "Processor";
-            cpuCounter.CounterName = "% Processor Time";
-            cpuCounter.InstanceName = "_Total";
+            PerformanceCounter cpuCounter = new PerformanceCounter("Processor", "% Processor Time", "_Total");
 
             // will always start at 0
             dynamic firstValue = cpuCounter.NextValue();

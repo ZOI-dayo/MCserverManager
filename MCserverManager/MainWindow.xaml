@@ -81,7 +81,7 @@
                         <TextBlock x:Name="System_CPU_Text" Margin="0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Center"><Run Text="CPU"/></TextBlock>
                         <TextBlock x:Name="System_MEM_Text" HorizontalAlignment="Center" Margin="0" Grid.Row="2" TextWrapping="Wrap" VerticalAlignment="Center"><Run Text="MEM"/></TextBlock>
                         <TextBlock x:Name="System_STR_Text" HorizontalAlignment="Center" Margin="0" Grid.Row="3" TextWrapping="Wrap" VerticalAlignment="Center"><Run Text="STR"/></TextBlock>
-                        <Grid x:Name="System_CPU_Graph" Grid.Column="1" Margin="10" Grid.Row="1">
+                        <Grid x:Name="System_CPU_Graph" Grid.Column="1" Margin="10" Grid.Row="1" Background="White">
                             <!--
                             <oxy:Plot>
                                 <oxy:Plot.Axes>

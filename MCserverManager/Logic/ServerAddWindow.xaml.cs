@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using MCserverManager.Logic.Manager;
+using Microsoft.WindowsAPICodePack.Dialogs;
 
 namespace MCserverManager.Logic
 {
@@ -71,6 +72,16 @@ namespace MCserverManager.Logic
                 ServerManager.CreateServer(ID);
             }
             ServerManager.ShowServer(ID, Main);
+        }
+
+        private void SetFolder_Button_Click(object sender, RoutedEventArgs e)
+        {
+            CommonOpenFileDialog fileDialog = new CommonOpenFileDialog("サーバーの保存先フォルダを指定");
+            fileDialog.IsFolderPicker = true;
+            if (fileDialog.ShowDialog() == CommonFileDialogResult.Ok)
+            {
+                Server_Folder_TextBox.Text = fileDialog.FileName;
+            }
         }
     }
 }

@@ -33,6 +33,17 @@ namespace MCserverManager
         {
             // 初期化
             InitializeComponent();
+            // Load
+            ServerManager.LoadServers();
+            LoadServers();
+        }
+
+        private void LoadServers()
+        {
+            List<Server> servers = ServerManager.GetServers();
+            foreach(Server server in servers) {
+                ServerUtil.CreateServerToMainWindow(Main, server.Name,Server_Button_Template, Server_StackPanel);
+            }
         }
 
         /*
@@ -51,6 +62,7 @@ namespace MCserverManager
 
         private void onWindowClosing(object sender, System.ComponentModel.CancelEventArgs e)
         {
+            // Save
             ServerManager.SaveServers();
             MessageBox.Show("ウィンドウを閉じます。");
         }

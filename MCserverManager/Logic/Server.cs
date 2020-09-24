@@ -16,9 +16,12 @@ namespace MCserverManager.Logic
     public class Server
     {
         // 参照用
+        [NonSerialized]
         private Canvas CPU_Graph_inner = new Canvas();
+        [NonSerialized]
         private Boolean isRunning;
 
+        public string Name;
         private string saveDirectryPath;
         private string serverFileName;
         private string startFileName;
@@ -26,14 +29,17 @@ namespace MCserverManager.Logic
         /// <summary>
         /// システム監視用タイマー,グラフ更新用
         /// </summary>
+        [NonSerialized]
         private DispatcherTimer SystemTimer;
         /// <summary>
         /// CPU使用履歴保存用
         /// </summary>
+        [NonSerialized]
         private List<float> CPUlog = new List<float>();
 
-        public Server(string saveDirectryPath)
+        public Server(string Name, string saveDirectryPath)
         {
+            this.Name = Name;
             this.saveDirectryPath = saveDirectryPath;
             Init();
         }

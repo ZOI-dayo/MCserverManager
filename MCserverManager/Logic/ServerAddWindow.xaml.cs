@@ -36,26 +36,15 @@ namespace MCserverManager.Logic
         private void Done_Button_Click(object sender, RoutedEventArgs e)
         {
             string serverName = Server_Name.Text;
-            string ID = Hash.CreateHashString(serverName);
-            if (ServerManager.ContainServer(ID)) {
+            // string ID = Hash.CreateHashString(serverName);
+            if (ServerManager.ContainServer(serverName)) {
                 MessageBox.Show("その名前のサーバーは既に作成されています。");
                 return;
             }
-            ServerManager.CreateServer(ID, Server_Folder_TextBox.Text);
+            ServerManager.CreateServer(serverName, Server_Folder_TextBox.Text);
 
-            Button serverButton = new Button();
-            serverButton.Name = serverName;
-            serverButton.VerticalAlignment = VerticalAlignment.Top;
-            serverButton.BorderBrush = Brushes.Black;
-            serverButton.Background = Server_Button_Template.Background;
-            serverButton.Margin = Server_Button_Template.Margin;
-            serverButton.Height = 50;
-            serverButton.Click += new RoutedEventHandler(Server_Button_Click);
+            ServerUtil.CreateServerToMainWindow(Main,serverName, Server_Button_Template, Server_StackPanel);
 
-            Label lavel = new Label();
-            lavel.Content = serverName;
-            lavel.FontWeight = FontWeights.Bold;
-            serverButton.Content = lavel;
 
             /*
             string serverButtonSTR = "<Button x:Name=\""+serverName+"\" VerticalAlignment=\"Top\" BorderBrush=\"Black\" Background=\"#FFF4F4F5\" Margin=\"5,10,5,0\" Height=\"50\" Click=\"Server_Button_Click\"><Label Content=\"" + serverName + "\" FontWeight=\"Bold\" /></Button>";
@@ -67,19 +56,7 @@ namespace MCserverManager.Logic
                         <Label Content="TEST SERVER" FontWeight="Bold"/>
                     </Button>
              */
-            Server_StackPanel.Children.Add(serverButton);
             Close();
-        }
-        private void Server_Button_Click(object sender, RoutedEventArgs e)
-        {
-            string Name = ((Button)sender).Name;
-            string ID = Hash.CreateHashString(Name);
-            if (!ServerManager.ContainServer(ID))
-            {
-                MessageBox.Show("指定された名称のサーバーが見つからなかったため開くことができません。");
-                // ServerManager.CreateServer(ID);
-            }
-            ServerManager.ShowServer(ID, Main);
         }
 
         private void SetFolder_Button_Click(object sender, RoutedEventArgs e)

@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Windows.Controls;
 using MCserverManager.Logic;
+using MCserverManager.Util;
 
 namespace MCserverManager.Logic.Manager
 {
@@ -42,8 +44,8 @@ namespace MCserverManager.Logic.Manager
         /// <param name="ID">管理用ID</param>
         /// <param name="System_CPU_Graph">サーバーのグラフ描画用オブジェクト</param>
         /// <returns>サーバーの保存に成功したかどうか</returns>
-        public static Boolean CreateServer(string ID) {
-            Server server = new Server();
+        public static Boolean CreateServer(string ID, string saveDirectryPath) {
+            Server server = new Server(saveDirectryPath);
             return SetServer(ID, server);
         }
         public static void ShowServer(string ID, Grid MainGrid)
@@ -59,6 +61,16 @@ namespace MCserverManager.Logic.Manager
         public static Boolean ContainServer(String ID)
         {
             return servers.ContainsKey(ID);
+        }
+
+        public static void SaveServers()
+        {
+            foreach(KeyValuePair<string, Server> serverData in servers) {
+                string name = serverData.Key;
+                Server server = serverData.Value;
+                DataUtil.SaveServer(server, name);
+                Debug.WriteLine(name);
+            }
         }
     }
 }

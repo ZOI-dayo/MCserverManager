@@ -66,7 +66,9 @@
     <Compile Include="Logic\ServerAddWindow.xaml.cs">
       <DependentUpon>ServerAddWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Util\DataUtil.cs" />
     <Compile Include="Util\Glaph.cs" />
+    <Compile Include="Util\Hash.cs" />
     <Compile Include="Util\SystemInfo.cs" />
     <Compile Include="Util\Timer.cs" />
     <Page Include="Logic\ServerAddWindow.xaml">

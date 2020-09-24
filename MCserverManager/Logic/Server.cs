@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO.Packaging;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,12 +12,16 @@ using System.Windows.Threading;
 
 namespace MCserverManager.Logic
 {
+    [Serializable]
     public class Server
     {
         // 参照用
         private Canvas CPU_Graph_inner = new Canvas();
-        // <Canvas x:Name="System_CPU_Graph" Grid.Column="1" Margin="10" Grid.Row="1" Background="White">
         private Boolean isRunning;
+
+        private string saveDirectryPath;
+        private string serverFileName;
+        private string startFileName;
         // 処理用
         /// <summary>
         /// システム監視用タイマー,グラフ更新用
@@ -27,8 +32,9 @@ namespace MCserverManager.Logic
         /// </summary>
         private List<float> CPUlog = new List<float>();
 
-        public Server()
+        public Server(string saveDirectryPath)
         {
+            this.saveDirectryPath = saveDirectryPath;
             Init();
         }
 

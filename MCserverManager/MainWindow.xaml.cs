@@ -48,5 +48,11 @@ namespace MCserverManager
             Window serverAddWindow = new ServerAddWindow(Main, Server_StackPanel, Server_Button_Template);
             serverAddWindow.Show();
         }
+
+        private void onWindowClosing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            ServerManager.SaveServers();
+            MessageBox.Show("ウィンドウを閉じます。");
+        }
     }
 }

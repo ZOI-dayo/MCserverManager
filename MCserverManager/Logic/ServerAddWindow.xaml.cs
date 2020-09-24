@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using MCserverManager.Logic.Manager;
+using MCserverManager.Util;
 using Microsoft.WindowsAPICodePack.Dialogs;
 
 namespace MCserverManager.Logic
@@ -35,7 +36,12 @@ namespace MCserverManager.Logic
         private void Done_Button_Click(object sender, RoutedEventArgs e)
         {
             string serverName = Server_Name.Text;
-            ServerManager.CreateServer(serverName);
+            string ID = Hash.CreateHashString(serverName);
+            if (ServerManager.ContainServer(ID)) {
+                MessageBox.Show("その名前のサーバーは既に作成されています。");
+                return;
+            }
+            ServerManager.CreateServer(ID, Server_Folder_TextBox.Text);
 
             Button serverButton = new Button();
             serverButton.Name = serverName;
@@ -66,10 +72,12 @@ namespace MCserverManager.Logic
         }
         private void Server_Button_Click(object sender, RoutedEventArgs e)
         {
-            string ID = ((Button)sender).Name;
+            string Name = ((Button)sender).Name;
+            string ID = Hash.CreateHashString(Name);
             if (!ServerManager.ContainServer(ID))
             {
-                ServerManager.CreateServer(ID);
+                MessageBox.Show("指定された名称のサーバーが見つからなかったため開くことができません。");
+                // ServerManager.CreateServer(ID);
             }
             ServerManager.ShowServer(ID, Main);
         }

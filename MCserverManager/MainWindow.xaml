@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:MCserverManager"
         xmlns:System="clr-namespace:System;assembly=mscorlib" x:Class="MCserverManager.MainWindow"
         mc:Ignorable="d"
+        Closing="onWindowClosing"
         Title="MainWindow" Height="720" Width="1280">
     <Grid x:Name="Main" Background="#FFFDB2EF">
         <Grid.ColumnDefinitions>

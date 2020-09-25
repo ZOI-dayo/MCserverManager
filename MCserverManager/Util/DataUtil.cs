@@ -41,12 +41,15 @@ namespace MCserverManager.Util
         public static List<Server> LoadServerList()
         {
             string filePath = localPath + "\\Data\\serverList.bin";
-            if (!File.Exists(Path.GetDirectoryName(filePath))) return new List<Server>();
+            Debug.WriteLine(filePath);
+            if (!File.Exists(filePath)) return new List<Server>();
 
             Stream stream = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.Read);
             IFormatter formatter = new BinaryFormatter();
             List<Server> servers = (List<Server>) formatter.Deserialize(stream);
             stream.Close();
+
+            Debug.WriteLine("Sever Count = "+servers.Count);
 
             return servers;
         }

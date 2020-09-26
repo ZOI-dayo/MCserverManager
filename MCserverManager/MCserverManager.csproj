@@ -67,6 +67,8 @@
     <Compile Include="Logic\ServerAddWindow.xaml.cs">
       <DependentUpon>ServerAddWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Logic\ServerFileLinks.cs" />
+    <Compile Include="Logic\ServerType.cs" />
     <Compile Include="Logic\ServerUtil.cs" />
     <Compile Include="DataDictionary.cs" />
     <Compile Include="Util\DataUtil.cs" />

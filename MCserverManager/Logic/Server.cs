@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.IO.Packaging;
 using System.Linq;
 using System.Text;
@@ -23,8 +24,13 @@ namespace MCserverManager.Logic
 
         public string Name;
         private string saveDirectryPath;
-        private string serverFileName;
-        private string startFileName;
+        private string serverFileName = "server.jar";
+        private string startFileName = "start.bat";
+        private string startCommand;
+
+        [NonSerialized]
+        private Process serverProcess;
+        private StreamReader serverLogReader;
         // 処理用
         /// <summary>
         /// システム監視用タイマー,グラフ更新用
@@ -52,6 +58,29 @@ namespace MCserverManager.Logic
             CPU_Graph_inner = new Canvas();
             isRunning = false;
             CPUlog = new List<float>();
+            serverProcess = new Process();
+            serverProcess.StartInfo.FileName = startFileName;
+            serverProcess.StartInfo.WorkingDirectory = saveDirectryPath;
+            serverProcess.StartInfo.CreateNoWindow = true;
+            serverProcess.StartInfo.RedirectStandardError = true;
+            serverProcess.StartInfo.RedirectStandardOutput = true;
+            serverProcess.StartInfo.UseShellExecute = false;
+            serverProcess.EnableRaisingEvents = true;
+
+            serverProcess.OutputDataReceived += (sender, ev) =>
+            {
+                ((TextBlock)DataDictionary.Main_Grid.FindName("Console_Log_Test")).Text += ev.Data + "\n";
+            };
+            serverProcess.ErrorDataReceived += (sender, ev) =>
+            {
+                ((TextBlock)DataDictionary.Main_Grid.FindName("Console_Log_Test")).Text += ev.Data + "\n";
+            };
+            serverProcess.Exited += (sender, ev) =>
+            {
+                Console.WriteLine($"exited");
+                serverProcess.WaitForExit();
+            };
+            // serverLogReader = serverProcess.StandardOutput;
 
             CPU_Graph_inner.Name = "System_CPU_Graph_inner";
             CPU_Graph_inner.Background = Brushes.White;
@@ -65,12 +94,21 @@ namespace MCserverManager.Logic
                 CPUlog.Insert(0, (float)cpuCount);
                 Glaph.CreateCanvasForGlaph(CPU_Graph_inner, CPUlog);
             };
+
+
+
+
+
+            CreateServer();
         }
 
         public Boolean run()
         {
             if (isRunning) return false;
             SystemTimer.Start();
+            serverProcess.Start();
+            serverProcess.BeginErrorReadLine();
+            serverProcess.BeginOutputReadLine();
             return true;
         }
         public Boolean stop()
@@ -87,19 +125,31 @@ namespace MCserverManager.Logic
             return CPU_Graph_inner;
         }
 
-        public void Show() {
+        public void Show()
+        {
             Grid MainGrid = DataDictionary.Main_Grid;
-            ((Grid) MainGrid.FindName("ServerHide")).Visibility = System.Windows.Visibility.Collapsed;
+            ((Grid)MainGrid.FindName("ServerHide")).Visibility = System.Windows.Visibility.Collapsed;
 
-            Grid System_CPU_Graph = (Grid) MainGrid.FindName("System_CPU_Graph");
+            Grid System_CPU_Graph = (Grid)MainGrid.FindName("System_CPU_Graph");
             System_CPU_Graph.Children.Clear();
             System_CPU_Graph.Children.Add(CPU_Graph_inner);
             Debug.WriteLine(CPU_Graph_inner.Name);
-            
+
         }
         public Boolean IsRunning()
         {
             return isRunning;
+        }
+        public void CreateServer()
+        {
+            if (!Directory.Exists(saveDirectryPath)) Directory.CreateDirectory(saveDirectryPath);
+            if (!File.Exists(saveDirectryPath + startFileName))
+            {
+                File.Create(saveDirectryPath + "\\" + startFileName);
+                File.WriteAllText(saveDirectryPath +"\\"+ startFileName, startCommand);
+
+            }
+                ServerFileLinks.DownloadServerVannila("1.8.4", saveDirectryPath + "\\" + serverFileName);
         }
 
     }

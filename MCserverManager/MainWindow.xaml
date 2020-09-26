@@ -106,6 +106,6 @@
             </TabControl>
         </Grid>
         <Grid x:Name="Players_Panel" Background="#FFB6D1FF" Grid.Column="2" HorizontalAlignment="Right" Width="256" />
-        <Grid x:Name="ServerHide" Grid.Column="1" Grid.ColumnSpan="2" Background="White" Visibility="Visible"/>
+        <Grid x:Name="ServerHide" Grid.Column="1" Grid.ColumnSpan="2" Background="White" Visibility="Collapsed"/>
     </Grid>
 </Window>

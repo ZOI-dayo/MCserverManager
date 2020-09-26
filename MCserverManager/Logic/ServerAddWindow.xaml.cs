@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,7 +11,6 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using MCserverManager.Logic.Manager;
 using MCserverManager.Util;
 using Microsoft.WindowsAPICodePack.Dialogs;
@@ -36,14 +36,32 @@ namespace MCserverManager.Logic
         private void Done_Button_Click(object sender, RoutedEventArgs e)
         {
             string serverName = Server_Name.Text;
+            string serverPath = Server_Folder_TextBox.Text;
             // string ID = Hash.CreateHashString(serverName);
             if (ServerManager.ContainServer(serverName)) {
                 MessageBox.Show("その名前のサーバーは既に作成されています。");
                 return;
             }
-            ServerManager.CreateServer(serverName, Server_Folder_TextBox.Text);
+            if (serverName == "" || serverPath == "") {
+                MessageBox.Show("空欄があります");
+                return;
+            }
+            if (!Directory.Exists(serverPath))
+            {
+                if (MessageBox.Show("そのパスにはフォルダが存在しません", "", MessageBoxButton.YesNo) == MessageBoxResult.Yes) {
+                    Directory.CreateDirectory(Path.GetDirectoryName(serverPath));
+                }
+                else
+                {
+                    return;
+                }
+            }
+            if(Directory.EnumerateFileSystemEntries(serverPath).Count() != 0) {
+                if (MessageBox.Show("すでにファイルが存在しますが、続行しますか", "", MessageBoxButton.YesNo) == MessageBoxResult.No) return;
+            }
+            ServerManager.CreateServer(serverName, serverPath);
 
-            ServerUtil.CreateServerToMainWindow(Main,serverName, Server_Button_Template, Server_StackPanel);
+            ServerUtil.CreateServerToMainWindow(serverName);
 
 
             /*
@@ -67,6 +85,7 @@ namespace MCserverManager.Logic
             {
                 Server_Folder_TextBox.Text = fileDialog.FileName;
             }
+            Focus();
         }
     }
 }

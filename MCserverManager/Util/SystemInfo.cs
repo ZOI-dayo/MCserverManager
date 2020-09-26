@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -23,6 +24,9 @@ namespace MCserverManager.Util
             Thread.Sleep(1000);
             // now matches task manager reading
             dynamic secondValue = cpuCounter.NextValue();
+
+            // test
+            
 
             return secondValue;
         }

@@ -15,15 +15,15 @@ namespace MCserverManager.Logic
     {
 
         private static Grid Main;
-        public static void CreateServerToMainWindow(Grid MainGrid, string serverName, Button Server_Button_Template, StackPanel Server_StackPanel)
+        public static void CreateServerToMainWindow(string serverName)
         {
-            Main = MainGrid;
+            Main = DataDictionary.Main_Grid;
             Button serverButton = new Button();
             serverButton.Name = serverName;
             serverButton.VerticalAlignment = VerticalAlignment.Top;
             serverButton.BorderBrush = Brushes.Black;
-            serverButton.Background = Server_Button_Template.Background;
-            serverButton.Margin = Server_Button_Template.Margin;
+            serverButton.Background = ((Button) DataDictionary.Main_Grid.FindName("Server_Button_Template")).Background;
+            serverButton.Margin = ((Button) DataDictionary.Main_Grid.FindName("Server_Button_Template")).Margin;
             serverButton.Height = 50;
             serverButton.Click += new RoutedEventHandler(Server_Button_Click);
 
@@ -32,7 +32,7 @@ namespace MCserverManager.Logic
             lavel.FontWeight = FontWeights.Bold;
             serverButton.Content = lavel;
 
-            Server_StackPanel.Children.Add(serverButton);
+            ((StackPanel) DataDictionary.Main_Grid.FindName("Server_StackPanel")).Children.Add(serverButton);
         }
 
 

@@ -67,7 +67,7 @@ namespace MCserverManager.Logic.Manager
             {
                 server.run();
             }
-            server.Show(MainGrid);
+            server.Show();
         }
 
         public static Boolean ContainServer(String Name)
@@ -94,6 +94,7 @@ namespace MCserverManager.Logic.Manager
             Debug.WriteLine(servers);
             foreach (Server server in servers)
             {
+                server.Init();
                 SetServer(server.Name, server);
                 Debug.WriteLine("Hey");
             }

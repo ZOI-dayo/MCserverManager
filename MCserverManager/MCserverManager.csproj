@@ -68,6 +68,7 @@
       <DependentUpon>ServerAddWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Logic\ServerUtil.cs" />
+    <Compile Include="DataDictionary.cs" />
     <Compile Include="Util\DataUtil.cs" />
     <Compile Include="Util\Glaph.cs" />
     <Compile Include="Util\Hash.cs" />

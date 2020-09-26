@@ -17,7 +17,7 @@ namespace MCserverManager.Logic
     {
         // 参照用
         [NonSerialized]
-        private Canvas CPU_Graph_inner = new Canvas();
+        private Canvas CPU_Graph_inner;
         [NonSerialized]
         private Boolean isRunning;
 
@@ -35,7 +35,7 @@ namespace MCserverManager.Logic
         /// CPU使用履歴保存用
         /// </summary>
         [NonSerialized]
-        private List<float> CPUlog = new List<float>();
+        private List<float> CPUlog;
 
         public Server(string Name, string saveDirectryPath)
         {
@@ -47,11 +47,14 @@ namespace MCserverManager.Logic
         /// <summary>
         /// データの初期化用
         /// </summary>
-        private void Init()
+        public void Init()
         {
+            CPU_Graph_inner = new Canvas();
+            isRunning = false;
+            CPUlog = new List<float>();
+
             CPU_Graph_inner.Name = "System_CPU_Graph_inner";
             CPU_Graph_inner.Background = Brushes.White;
-            isRunning = false;
 
             // タイマー関係
             SystemTimer = Timer.CreateTimer(1000);
@@ -84,7 +87,9 @@ namespace MCserverManager.Logic
             return CPU_Graph_inner;
         }
 
-        public void Show(Grid MainGrid) {
+        public void Show() {
+            Grid MainGrid = DataDictionary.Main_Grid;
+            ((Grid) MainGrid.FindName("ServerHide")).Visibility = System.Windows.Visibility.Collapsed;
 
             Grid System_CPU_Graph = (Grid) MainGrid.FindName("System_CPU_Graph");
             System_CPU_Graph.Children.Clear();

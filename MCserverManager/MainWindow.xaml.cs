@@ -33,16 +33,26 @@ namespace MCserverManager
         {
             // 初期化
             InitializeComponent();
+            DictionaryInit();
             // Load
             ServerManager.LoadServers();
             LoadServers();
         }
 
+        private void DictionaryInit()
+        {
+            // データ辞書
+            DataDictionary.Main_Grid = Main;
+            // DataDictionary.Server_Button_Template = Server_Button_Template;
+            // DataDictionary.Server_StackPanel = Server_StackPanel;
+        }
+
         private void LoadServers()
         {
             List<Server> servers = ServerManager.GetServers();
-            foreach(Server server in servers) {
-                ServerUtil.CreateServerToMainWindow(Main, server.Name,Server_Button_Template, Server_StackPanel);
+            foreach (Server server in servers)
+            {
+                ServerUtil.CreateServerToMainWindow(server.Name);
             }
         }
 

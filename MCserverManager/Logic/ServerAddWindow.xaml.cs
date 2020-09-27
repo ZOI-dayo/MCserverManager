@@ -22,15 +22,18 @@ namespace MCserverManager.Logic
     /// </summary>
     public partial class ServerAddWindow : Window
     {
-        private Grid Main;
-        private StackPanel Server_StackPanel;
-        private Button Server_Button_Template;
+        // private Grid Main;
+        // private StackPanel Server_StackPanel;
+        // private Button Server_Button_Template;
         public ServerAddWindow(Grid Main, StackPanel Server_StackPanel, Button Server_Button_Template)
         {
             InitializeComponent();
-            this.Main = Main;
-            this.Server_StackPanel = Server_StackPanel;
-            this.Server_Button_Template = Server_Button_Template;
+            DictionaryInit();
+        }
+        private void DictionaryInit()
+        {
+            // データ辞書
+            DataDictionary.ServerAddWindow_Grid = Main;
         }
 
         private void Done_Button_Click(object sender, RoutedEventArgs e)
@@ -38,30 +41,42 @@ namespace MCserverManager.Logic
             string serverName = Server_Name.Text;
             string serverPath = Server_Folder_TextBox.Text;
             // string ID = Hash.CreateHashString(serverName);
-            if (ServerManager.ContainServer(serverName)) {
-                MessageBox.Show("その名前のサーバーは既に作成されています。");
+            if (serverName == "" || serverPath == "")
+            {
+                MessageBox.Show("空欄があります");
                 return;
             }
-            if (serverName == "" || serverPath == "") {
-                MessageBox.Show("空欄があります");
+            if (ServerManager.ContainServer(serverName))
+            {
+                MessageBox.Show("その名前のサーバーは既に作成されています。");
                 return;
             }
             if (!Directory.Exists(serverPath))
             {
-                if (MessageBox.Show("そのパスにはフォルダが存在しません", "", MessageBoxButton.YesNo) == MessageBoxResult.Yes) {
-                    Directory.CreateDirectory(Path.GetDirectoryName(serverPath));
-                }
-                else
+                if (MessageBox.Show("そのパスにはフォルダが存在しません", "", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
                 {
-                    return;
+                    Directory.CreateDirectory(serverPath);
                 }
             }
-            if(Directory.EnumerateFileSystemEntries(serverPath).Count() != 0) {
+            if (Directory.EnumerateFileSystemEntries(serverPath).Count() != 0)
+            {
                 if (MessageBox.Show("すでにファイルが存在しますが、続行しますか", "", MessageBoxButton.YesNo) == MessageBoxResult.No) return;
             }
+
+            /*
+            Window downloadingWindow = new DownloadingWindow();
+            downloadingWindow.Owner = this;
+            downloadingWindow.Show();
+            */
+            // Task task = Task.Run(() => { downloadingWindow.ShowDialog(); });
+            // Close();
+            // downloadingWindow.ShowDialog();
+
             ServerManager.CreateServer(serverName, serverPath);
 
             ServerUtil.CreateServerToMainWindow(serverName);
+
+
 
 
             /*
@@ -74,7 +89,7 @@ namespace MCserverManager.Logic
                         <Label Content="TEST SERVER" FontWeight="Bold"/>
                     </Button>
              */
-            Close();
+            // Close();
         }
 
         private void SetFolder_Button_Click(object sender, RoutedEventArgs e)
@@ -85,7 +100,6 @@ namespace MCserverManager.Logic
             {
                 Server_Folder_TextBox.Text = fileDialog.FileName;
             }
-            Focus();
         }
     }
 }

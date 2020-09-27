@@ -1,10 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Navigation;
 
 namespace MCserverManager.Logic
 {
@@ -149,16 +154,43 @@ namespace MCserverManager.Logic
             }
         }
 
-        public static void DownloadServerVannila(string version, string downloadFilePath)
+        public static void DownloadServerVannila(string version, string downloadFilePath/*, Func<int, Label, bool> OnPercentChange*/)
         {
-            string remoteUri = GetLink(version);
+            Uri remoteUri = new Uri(GetLink(version));
+
+            Debug.WriteLine("hei version = " + version);
 
             //Create a new WebClient instance. 
-            using (WebClient webClient = new WebClient())
+            WebClient webClient = new WebClient();
+            // using () {
+            //Download the Web resource and save it into the current filesystem folder. 
+            webClient.DownloadProgressChanged += new DownloadProgressChangedEventHandler((_sender, _e) =>
             {
-                //Download the Web resource and save it into the current filesystem folder. 
-                webClient.DownloadFile(remoteUri, downloadFilePath);
-            }
+                Debug.WriteLine("webClient.DownloadProgressChanged");
+                if (_e.TotalBytesToReceive == -1)
+                {
+                    // OnPercentChange(-1);
+                    // percentLabel.Content = "ダウンロード中...";
+                    // Print("Download in Progress");
+                }
+                else
+                {
+                    // OnPercentChange(_e.ProgressPercentage);
+
+                    // percentLabel.Content = _e.ProgressPercentage + "%...";
+                    ((ProgressBar)DataDictionary.ServerAddWindow_Grid.FindName("DownloadBar")).Value = _e.ProgressPercentage;
+                    // Print(_e.ProgressPercent);
+                }
+            });
+            webClient.DownloadFileCompleted += new AsyncCompletedEventHandler((_sender, _e) =>
+            {
+                ((Grid)DataDictionary.ServerAddWindow_Grid.FindName("DownloadingGrid")).Visibility = Visibility.Collapsed;
+                Window.GetWindow(DataDictionary.ServerAddWindow_Grid).Close();
+            });
+
+            ((Grid)DataDictionary.ServerAddWindow_Grid.FindName("DownloadingGrid")).Visibility = Visibility.Visible;
+            webClient.DownloadFileAsync(remoteUri, downloadFilePath);
+            // }
         }
     }
 }

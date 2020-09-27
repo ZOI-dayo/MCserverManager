@@ -67,7 +67,9 @@ namespace MCserverManager
         private void Server_Add_Button_Click(object sender, RoutedEventArgs e)
         {
             Window serverAddWindow = new ServerAddWindow(Main, Server_StackPanel, Server_Button_Template);
-            serverAddWindow.Show();
+            serverAddWindow.Owner = this;
+
+            serverAddWindow.ShowDialog();
         }
 
         private void onWindowClosing(object sender, System.ComponentModel.CancelEventArgs e)

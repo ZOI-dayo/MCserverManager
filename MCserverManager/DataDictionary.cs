@@ -10,6 +10,8 @@ namespace MCserverManager
     class DataDictionary
     {
         public static Grid Main_Grid;
+        public static Grid ServerAddWindow_Grid;
+        public static Grid DownloadingWindow_Grid;
         // public static Button Server_Button_Template;
         // public static StackPanel Server_StackPanel;
     }

@@ -7,6 +7,7 @@ using System.IO.Packaging;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Threading;
@@ -25,7 +26,7 @@ namespace MCserverManager.Logic
         public string Name;
         private string saveDirectryPath;
         private string serverFileName = "server.jar";
-        private string startFileName = "start.bat";
+        // private string startFileName = "start.bat";
         private string startCommand;
 
         [NonSerialized]
@@ -143,13 +144,35 @@ namespace MCserverManager.Logic
         public void CreateServer()
         {
             if (!Directory.Exists(saveDirectryPath)) Directory.CreateDirectory(saveDirectryPath);
+            /*
             if (!File.Exists(saveDirectryPath + startFileName))
             {
                 File.Create(saveDirectryPath + "\\" + startFileName);
-                File.WriteAllText(saveDirectryPath +"\\"+ startFileName, startCommand);
+                File.WriteAllText(saveDirectryPath + "\\" + startFileName, startCommand);
 
             }
-                ServerFileLinks.DownloadServerVannila("1.8.4", saveDirectryPath + "\\" + serverFileName);
+            */
+            Debug.WriteLine("CreateServer()");
+            Task serverDownload = Task.Run(() =>
+            Application.Current.Dispatcher.Invoke(() =>
+            {
+                ServerFileLinks.DownloadServerVannila(
+                    "1.8.4",
+                    saveDirectryPath + "\\" + serverFileName/*,
+                    /*(Label)DataDictionary.ServerAddWindow_Grid.FindName("Downoading_Percent")/*, OnDownloadPercentChange*/);
+            }));
+        }
+        private bool OnDownloadPercentChange(int percent, Label percentLabel)
+        {
+            // Label percentLabel = (Label)DataDictionary.ServerAddWindow_Grid.FindName("Downoading_Percent");
+            if (percent < 0)
+            {
+                percentLabel.Content = "ダウンロード中...";
+                return false;
+            }
+            percentLabel.Content = percent + "%...";
+            Debug.WriteLine(percent);
+            return true;
         }
 
     }

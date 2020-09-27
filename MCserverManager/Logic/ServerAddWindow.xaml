@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:MCserverManager.Logic"
         mc:Ignorable="d"
         Title="ServerAdd" Height="450" Width="800">
-    <Grid Margin="20,20,20,15">
+    <Grid x:Name="Main" Margin="20,20,20,15">
         <Grid.RowDefinitions>
             <RowDefinition Height="2*"/>
             <RowDefinition/>
@@ -27,10 +27,12 @@
         <Label Content="保存先フォルダ" Margin="0" Grid.Row="2" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
         <TextBox x:Name="Server_Folder_TextBox" Grid.Column="1" Margin="5,0" Grid.Row="2" VerticalAlignment="Center" Height="20"/>
         <Button Content="参照" Grid.Column="2" Margin="5,0" Grid.Row="2" VerticalAlignment="Center" Click="SetFolder_Button_Click"/>
+        <Label x:Name="Downoading_Percent" Content="" Grid.Column="3" Margin="5,3" Grid.Row="2"/>
 
-
-
-
+        <Grid x:Name="DownloadingGrid" Margin="-20,-20,-20,-15" Grid.RowSpan="5" Grid.ColumnSpan="4" Background="Gray" Visibility="Collapsed">
+            <Label Content="ダウンロード中..." HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,25,0,0" Background="#7FFFFFFF"/>
+            <ProgressBar x:Name="DownloadBar" Height="20" VerticalAlignment="Center" Margin="25,0"/>
+        </Grid>
 
     </Grid>
 </Window>

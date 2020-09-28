@@ -19,6 +19,8 @@ namespace MCserverManager.Logic.Manager
         /// </summary>
         private static Dictionary<string, Server> servers = new Dictionary<string, Server>();
 
+        public static string ShowingServerName;
+
         /// <summary>
         /// 名前からサーバーを取得します
         /// </summary>
@@ -61,6 +63,7 @@ namespace MCserverManager.Logic.Manager
         }
         public static void ShowServer(string Name, Grid MainGrid)
         {
+            ShowingServerName = Name;
             Server server = GetServer(Name);
             // あとで消す
             if (!server.IsRunning())

@@ -40,7 +40,7 @@
                 <Ellipse Fill="White" Stroke="Black" Width="15" Height="15" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="16,0,0,0"/>
                 <Image HorizontalAlignment="Left" Height="80" Margin="40,0,0,0" Width="80" Stretch="Fill"/>
                 <Label Content="Server Name" HorizontalAlignment="Left" Margin="145,10,0,0" VerticalAlignment="Top" FontWeight="Bold" FontSize="16"/>
-                <Button Content="Start/Stop" HorizontalAlignment="Right" Margin="793,10,15,0" VerticalAlignment="Center"/>
+                <Button Content="Start/Stop" HorizontalAlignment="Right" Margin="793,10,15,0" VerticalAlignment="Center" Click="Server_Start_Button_Click"/>
             </Grid>
             <TabControl x:Name="Server_Control" Margin="5" Grid.Row="1">
                 <TabItem x:Name="Server_Info_Tab" Header="Info">
@@ -53,14 +53,14 @@
                             <RowDefinition/>
                         </Grid.RowDefinitions>
                         <ScrollViewer x:Name="Console_Log_Scroll" Margin="0" Background="#FF202020" Padding="0,0,0,28" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch">
-                            <TextBlock x:Name="Console_Log_Test" TextWrapping="Wrap" Text="TextBlock" FontFamily="Lucida Console" FontSize="16" Foreground="White" Margin="10,10,10,-17"><Run Text="hduiqwgyiudeguydgwqiwhduygfheoihduyisgiudgehiugsahoiheiugfkjoiahuiohfkjehkouidhshfkjheiuhifhjkdshfd"/><LineBreak /><Run Text="oeifhoiwehoifheoihfdh uihdfeiwuhdf"/><LineBreak /><LineBreak /><LineBreak /><LineBreak /><LineBreak /><LineBreak /><LineBreak /><LineBreak /><LineBreak /><LineBreak /><LineBreak /><LineBreak /><LineBreak /><LineBreak /><LineBreak /><LineBreak /><LineBreak /><Run Text="a"/><LineBreak /><LineBreak /><LineBreak /><LineBreak /><LineBreak /><LineBreak /><Run Text="a"/><LineBreak /><LineBreak /><LineBreak /><LineBreak /><LineBreak /><LineBreak /><Run Text="a"/><LineBreak /><LineBreak /><LineBreak /><LineBreak /><LineBreak /><Run Text="b"/><LineBreak /><LineBreak /><LineBreak /><LineBreak /><Run Text="c"/></TextBlock>
+                            <TextBlock x:Name="Console_Log_Test" TextWrapping="Wrap" FontFamily="Lucida Console" FontSize="16" Foreground="White" Margin="10,10,10,-17"></TextBlock>
                         </ScrollViewer>
                         <Grid x:Name="Console_Control_Grid" Margin="0" Grid.Row="1">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="100*"/>
                                 <ColumnDefinition Width="9*"/>
                             </Grid.ColumnDefinitions>
-                            <TextBox x:Name="Console_Control_TextBox" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Center" Margin="10,0"/>
+                            <TextBox x:Name="Console_Control_TextBox" TextWrapping="Wrap" VerticalAlignment="Center" Margin="10,0"/>
                             <Button x:Name="Console_Control_TextSend_Button" Content="送信" Margin="10,0" VerticalAlignment="Center" Grid.Column="1"/>
                         </Grid>
                     </Grid>

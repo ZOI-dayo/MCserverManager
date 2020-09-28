@@ -78,5 +78,18 @@ namespace MCserverManager
             ServerManager.SaveServers();
             MessageBox.Show("ウィンドウを閉じます。");
         }
+
+        private void Server_Start_Stop_Button_Click(object sender, RoutedEventArgs e)
+        {
+            Server server = ServerManager.GetServer(ServerManager.ShowingServerName);
+            if (server.IsRunning())
+            {
+                server.stop();
+            }
+            else
+            {
+                server.run();
+            }
+        }
     }
 }

@@ -1,4 +1,5 @@
-﻿using MCserverManager.Util;
+﻿using MCserverManager.Logic.Manager;
+using MCserverManager.Util;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -21,13 +22,13 @@ namespace MCserverManager.Logic
         [NonSerialized]
         private Canvas CPU_Graph_inner;
         [NonSerialized]
-        private Boolean isRunning;
+        private bool isRunning;
 
         public string Name;
         private string saveDirectryPath;
         private string serverFileName = "server.jar";
         // private string startFileName = "start.bat";
-        private string startCommand;
+        private string startOption;
 
         [NonSerialized]
         private Process serverProcess;
@@ -59,8 +60,11 @@ namespace MCserverManager.Logic
             CPU_Graph_inner = new Canvas();
             isRunning = false;
             CPUlog = new List<float>();
+            startOption = "-Xms2048M -Xmx8192M -jar " + serverFileName + " nogui";
+
             serverProcess = new Process();
-            serverProcess.StartInfo.FileName = startFileName;
+            serverProcess.StartInfo.FileName = "java";
+            serverProcess.StartInfo.Arguments = startOption; // "-a -b -c"のように
             serverProcess.StartInfo.WorkingDirectory = saveDirectryPath;
             serverProcess.StartInfo.CreateNoWindow = true;
             serverProcess.StartInfo.RedirectStandardError = true;
@@ -68,19 +72,33 @@ namespace MCserverManager.Logic
             serverProcess.StartInfo.UseShellExecute = false;
             serverProcess.EnableRaisingEvents = true;
 
+
             serverProcess.OutputDataReceived += (sender, ev) =>
             {
-                ((TextBlock)DataDictionary.Main_Grid.FindName("Console_Log_Test")).Text += ev.Data + "\n";
+                if (isRunning && ServerManager.ShowingServerName == Name) {
+                    DataDictionary.Main_Grid.Dispatcher.Invoke(() =>
+                    {
+                        ((TextBlock)DataDictionary.Main_Grid.FindName("Console_Log_Test")).Text += ev.Data + "\n";
+                    });
+                }
             };
             serverProcess.ErrorDataReceived += (sender, ev) =>
             {
-                ((TextBlock)DataDictionary.Main_Grid.FindName("Console_Log_Test")).Text += ev.Data + "\n";
+                if (isRunning && ServerManager.ShowingServerName == Name)
+                {
+                    DataDictionary.Main_Grid.Dispatcher.Invoke(() =>
+                    {
+                        ((TextBlock)DataDictionary.Main_Grid.FindName("Console_Log_Test")).Text += ev.Data + "\n";
+                    });
+                }
+
             };
             serverProcess.Exited += (sender, ev) =>
             {
                 Console.WriteLine($"exited");
                 serverProcess.WaitForExit();
             };
+            
             // serverLogReader = serverProcess.StandardOutput;
 
             CPU_Graph_inner.Name = "System_CPU_Graph_inner";
@@ -106,15 +124,21 @@ namespace MCserverManager.Logic
         public Boolean run()
         {
             if (isRunning) return false;
+            isRunning = true;
             SystemTimer.Start();
+            
             serverProcess.Start();
-            serverProcess.BeginErrorReadLine();
+            
             serverProcess.BeginOutputReadLine();
+            serverProcess.BeginErrorReadLine();
+            
+            
             return true;
         }
         public Boolean stop()
         {
             if (!isRunning) return false;
+            isRunning = false;
 
             SystemTimer.Stop();
             Glaph.clear(CPU_Graph_inner);
